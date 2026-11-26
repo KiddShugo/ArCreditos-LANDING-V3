@@ -1,0 +1,160 @@
+/* AR Créditos · DESTACADOS: la vitrina de la página de inicio (assets/js/promos.js)
+   Mismo lenguaje que el catálogo: blanco y negro, bordes negros finos, esquinas rectas, títulos condensados
+   en mayúsculas. El producto grande cambia con una cortina negra; la lista marca con una barra cuándo pasa
+   al siguiente. */
+
+/* la sección crece con su contenido, como el catálogo */
+main > section.promos { height: auto !important; min-height: 0 !important; display: block; }
+main > section.promos > .wrap { height: auto !important; display: block; }
+.promos__head { margin-bottom: var(--s-6); }
+.promos__all { gap: 8px; white-space: nowrap; font-weight: 600; }
+
+/* ---------------------------------------------------------------- vitrina */
+.vit { --vit-dur: 7s; display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 24px; align-items: stretch; }
+
+/* el producto grande */
+.vit__stage {
+  position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); min-height: 480px;
+  background: var(--p-bg); border: 1px solid var(--p-ink); transition: box-shadow .32s var(--ar-ease);
+}
+.vit__stage.is-added { box-shadow: inset 0 0 0 1px var(--p-ink); }
+.vit__media { position: relative; overflow: hidden; background: var(--p-surface); border-right: 1px solid var(--p-ink); }
+.vit__media > [data-vit-media] { position: absolute; inset: 0; display: grid; place-items: center; }
+.vit__ilu { position: relative; z-index: 1; width: 80%; transition: transform .6s var(--ar-ease); }
+.vit__ilu .ilu, .vit__ilu img { width: 100%; }
+.vit__ilu img { height: auto; mix-blend-mode: multiply; }
+.vit__stage:hover .vit__ilu { transform: scale(1.04); }
+.vit__tag { z-index: 2; }
+/* el número del destacado, grande y calado, detrás del dibujo */
+.vit__big {
+  position: absolute; right: 14px; bottom: -.1em; z-index: 0; overflow: hidden; pointer-events: none;
+  font: 600 clamp(120px, 12vw, 196px)/.82 var(--font-display); letter-spacing: -.01em; font-variant-numeric: tabular-nums;
+  color: transparent; -webkit-text-stroke: 1.5px color-mix(in oklab, var(--p-ink) 24%, transparent);
+}
+.vit__big > span { display: inline-block; }
+/* la cortina negra del cambio (la mueve promos.js) */
+.vit__wipe { position: absolute; inset: 0; z-index: 3; background: var(--p-ink); transform: scaleX(0); transform-origin: left center; pointer-events: none; }
+
+.vit__body { display: flex; flex-direction: column; gap: 14px; min-width: 0; padding: 28px 28px 24px; }
+.vit__cat { font: 600 11.5px/1.3 var(--font-text); text-transform: uppercase; letter-spacing: .09em; color: var(--p-muted); }
+.vit__name { font: 500 clamp(26px, 2.2vw, 34px)/1.04 var(--font-display); text-transform: uppercase; letter-spacing: .005em; text-wrap: balance; min-height: 3.12em; }
+.vit__facts { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; margin: auto 0 0; padding-top: 16px; border-top: 1px solid color-mix(in oklab, var(--p-ink) 14%, transparent); }
+.vit__facts > div { display: grid; gap: 6px; min-width: 0; }
+.vit__facts > div:last-child { text-align: right; }
+.vit__facts dt { font: 600 10.5px/1.2 var(--font-text); text-transform: uppercase; letter-spacing: .09em; color: var(--p-muted); }
+.vit__facts dd { margin: 0; font: 600 15px/1.2 var(--font-text); }
+.vit__value { font: 500 clamp(40px, 3.6vw, 56px)/.9 var(--font-display) !important; letter-spacing: .01em; font-variant-numeric: tabular-nums; }
+.vit__actions .pc__add { height: 52px; font-size: 14px; }
+.vit__actions .pc__wa { width: 52px; height: 52px; }
+.vit__actions .qty { height: 52px; }
+.vit__more { align-self: flex-start; gap: 8px; font-weight: 600; }
+
+/* la lista */
+.vit__side { display: flex; flex-direction: column; min-width: 0; }
+.vit__bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--p-ink); }
+.vit__pos { font: 500 20px/1 var(--font-display); letter-spacing: .04em; font-variant-numeric: tabular-nums; }
+.vit__pausa {
+  display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 12px; border: 1px solid var(--p-ink); background: none; color: var(--p-ink);
+  font: 600 11.5px/1 var(--font-text); text-transform: uppercase; letter-spacing: .09em; cursor: pointer; transition: background-color .2s ease, color .2s ease;
+}
+.vit__pausa:hover { background: var(--p-ink); color: var(--p-bg); }
+.vit__list { list-style: none; margin: 0; padding: 0; display: grid; grid-auto-rows: 1fr; flex: 1; }
+.vit__list > li { min-width: 0; }
+.vit__tab {
+  position: relative; width: 100%; height: 100%; min-height: 72px; display: grid; grid-template-columns: 64px minmax(0, 1fr) auto; align-items: center; gap: 14px;
+  padding: 10px 12px 10px 0; border: 0; border-bottom: 1px solid var(--line-strong); background: none; color: var(--p-ink); text-align: left; cursor: pointer; font: inherit;
+  transition: background-color .25s ease, color .25s ease, padding .3s var(--ar-ease);
+}
+.vit__tab:hover { padding-left: 8px; }
+.vit__tab[aria-current="true"] { background: var(--p-ink); color: var(--p-bg); padding-left: 12px; }
+.vit__tab:focus-visible { outline: 2px solid var(--p-ink); outline-offset: 2px; }
+.vit__thumb { width: 64px; aspect-ratio: 4 / 3; display: grid; place-items: center; background: var(--p-surface); color: var(--p-ink); transition: background-color .25s ease, color .25s ease; }
+.vit__thumb .ilu { width: 92%; color: inherit; }
+.vit__tab[aria-current="true"] .vit__thumb { background: #262626; color: var(--p-bg); }
+.vit__tab-txt { display: grid; gap: 4px; min-width: 0; }
+.vit__tab-name { font: 600 14px/1.25 var(--font-text); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.vit__tab-val { font-size: 13px; opacity: .7; font-variant-numeric: tabular-nums; }
+.vit__tab-n { font: 500 15px/1 var(--font-display); letter-spacing: .04em; opacity: .55; }
+/* el tiempo hasta el siguiente: una línea que se completa en el elegido */
+.vit__prog { position: absolute; left: 0; right: 0; bottom: -1px; height: 3px; overflow: hidden; pointer-events: none; }
+.vit__prog i { display: block; height: 100%; background: currentColor; transform: scaleX(0); transform-origin: left center; }
+.vit__tab[aria-current="true"] .vit__prog i { animation: vit-prog var(--vit-dur) linear forwards; }
+.vit.is-paused .vit__tab[aria-current="true"] .vit__prog i { animation-play-state: paused; }
+.vit.is-stopped .vit__prog { opacity: .35; }
+@keyframes vit-prog { to { transform: scaleX(1); } }
+
+/* el texto, el dibujo y el número nuevos entran mientras se corre la cortina */
+@keyframes vit-up { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+@keyframes vit-ilu { from { opacity: 0; transform: scale(.9) translateX(-14px); } to { opacity: 1; transform: none; } }
+@keyframes vit-big { from { opacity: 0; transform: translateY(45%); } to { opacity: 1; transform: none; } }
+.ar-anim .vit__stage.is-swapped .vit__body > * { animation: vit-up .55s var(--ar-ease) both; animation-delay: calc(var(--k, 0) * 55ms + 120ms); }
+.ar-anim .vit__stage.is-swapped [data-vit-media] .vit__ilu { animation: vit-ilu .75s var(--ar-ease) both; }
+.ar-anim .vit__stage.is-swapped .vit__big > span { animation: vit-big .8s var(--ar-ease) both .05s; }
+/* "reducir movimiento": un fundido, sin cortina ni desplazamientos, y la barra del tiempo sigue andando */
+.ar-calm .vit__stage.is-fade :is([data-vit-media] > *, .vit__body > *) { animation: ar-fade .4s ease both !important; }
+.ar-calm .vit__tab[aria-current="true"] .vit__prog i { animation: vit-prog var(--vit-dur) linear forwards !important; }
+.ar-calm .vit.is-paused .vit__tab[aria-current="true"] .vit__prog i { animation-play-state: paused !important; }
+
+/* ---------------------------------------------------------------- cierre: hacia el catálogo completo */
+.promos__cta { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--s-7); align-items: center; margin-top: var(--s-8); padding: var(--s-7); }
+.promos__cta-txt { display: grid; gap: var(--s-4); justify-items: start; }
+.promos__cta h3 { font: 500 clamp(26px, 2.4vw, 36px)/1.05 var(--font-display); text-transform: uppercase; letter-spacing: .005em; max-width: 20ch; }
+.promos__n { display: block; font-size: clamp(72px, 8vw, 128px); line-height: .9; font-variant-numeric: tabular-nums; }
+.promos__cta-txt > p:not(.t-label) { color: var(--muted); max-width: 52ch; }
+.promos__cta .btn { margin-top: var(--s-2); gap: 10px; }
+.promos__cats { list-style: none; margin: 0; padding: 0; border-top: 1px solid #2a2a2a; }
+.promos__cats > li { border-bottom: 1px solid #2a2a2a; }
+.promos__cats a {
+  display: grid; grid-template-columns: 76px minmax(0, 1fr) auto; align-items: center; gap: 16px; padding: 12px 12px 12px 0; color: var(--ink);
+  transition: background-color .25s ease, color .25s ease, padding .3s var(--ar-ease);
+}
+.promos__cats a:hover, .promos__cats a:focus-visible { background: var(--p-inv-ink); color: var(--p-inv-bg); padding-left: 12px; }
+.promos__cat-ilu { width: 76px; aspect-ratio: 4 / 3; display: grid; place-items: center; background: var(--p-inv-surface); color: var(--p-inv-ink); transition: background-color .25s ease, color .25s ease; }
+.promos__cat-ilu .ilu { width: 92%; color: inherit; }
+.promos__cats a:hover .promos__cat-ilu, .promos__cats a:focus-visible .promos__cat-ilu { background: var(--p-surface); color: var(--p-ink); }
+.promos__cat-txt { display: grid; gap: 4px; min-width: 0; }
+.promos__cat-name { font: 600 14px/1.25 var(--font-text); text-transform: uppercase; letter-spacing: .07em; }
+.promos__cat-n { font-size: 13px; opacity: .7; font-variant-numeric: tabular-nums; }
+.promos__cats .m-arrow { width: 14px; height: 14px; }
+
+/* ---------------------------------------------------------------- tamaños de pantalla */
+@media (max-width: 1279px) {
+  .vit { grid-template-columns: minmax(0, 1fr); }
+  .vit__list { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 16px; }
+}
+@media (max-width: 1023px) {
+  .vit__list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .promos__cta { grid-template-columns: minmax(0, 1fr); padding: var(--s-6); }
+}
+@media (max-width: 799px) {
+  .promos__head .promos__all { display: none; }
+  .vit__stage { grid-template-columns: minmax(0, 1fr); min-height: 0; }
+  .vit__media { aspect-ratio: 4 / 3; border-right: 0; border-bottom: 1px solid var(--p-ink); }
+  .vit__ilu { width: 62%; }
+  .vit__big { font-size: 132px; }
+  .vit__name { min-height: 0; }
+}
+@media (max-width: 639px) {
+  /* la lista pasa a una fila que se desliza, hasta los bordes de la pantalla */
+  .vit__list {
+    display: flex; gap: 8px; overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: none;
+    margin-inline: calc(-1 * var(--gut)); padding: 12px var(--gut) 4px; scroll-padding-inline: var(--gut);
+  }
+  .vit__list::-webkit-scrollbar { display: none; }
+  .vit__list > li { flex: none; width: 236px; scroll-snap-align: start; }
+  .vit__tab { grid-template-columns: 52px minmax(0, 1fr); gap: 10px; min-height: 64px; padding: 8px; border: 1px solid var(--p-ink); }
+  .vit__tab:hover, .vit__tab[aria-current="true"] { padding-left: 8px; }
+  .vit__tab-n { display: none; }
+  .vit__thumb { width: 52px; }
+  .vit__tab-name { font-size: 13px; }
+  .vit__bar { border-bottom: 0; padding-bottom: 0; margin-top: var(--s-4); }
+  .vit__body { padding: 18px 16px 16px; gap: 12px; }
+  .vit__name { font-size: 26px; }
+  .vit__value { font-size: 40px !important; }
+  .vit__actions .pc__add { height: 48px; }
+  .vit__actions .pc__wa { width: 48px; height: 48px; }
+  .promos__cta { padding: var(--s-5); margin-top: var(--s-7); gap: var(--s-6); }
+  .promos__cta .btn { width: 100%; justify-content: center; }
+  .promos__cats a { grid-template-columns: 60px minmax(0, 1fr) auto; gap: 12px; }
+  .promos__cat-ilu { width: 60px; }
+}

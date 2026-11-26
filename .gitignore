@@ -1,0 +1,5 @@
+# herramientas locales de diseño y capturas de revisión
+.taste-skill/
+shots/
+# copias de seguridad locales antes de cada cambio grande (no se publican)
+_backup/
