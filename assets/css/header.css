@@ -167,6 +167,7 @@ html:not(.has-consulta) .cnt { display: none; }
   .hdr.is-menu .hdr__links > li:nth-child(3) { animation-delay: 80ms; }
   .hdr.is-menu .hdr__links > li:nth-child(4) { animation-delay: 120ms; }
   .hdr.is-menu .hdr__links > li:nth-child(5) { animation-delay: 160ms; }
+  .hdr.is-menu .hdr__links > li:nth-child(6) { animation-delay: 200ms; }
   .hdr.is-menu .hdr__link {
     width: 100%; height: 64px; padding: 0; justify-content: space-between; color: var(--ink);
     font: 500 26px/1 var(--font-display); letter-spacing: .02em;
@@ -185,7 +186,7 @@ html:not(.has-consulta) .cnt { display: none; }
   .drop__name { font-size: 14px; }
   .drop__desc { font-size: 13px; }
   .drop__count { display: none; }
-  .hdr.is-menu .hdr__sheet-foot { display: grid; gap: var(--s-3); margin-top: var(--s-6); animation: item-in .42s var(--ar-ease) .2s both; }
+  .hdr.is-menu .hdr__sheet-foot { display: grid; gap: var(--s-3); margin-top: var(--s-6); animation: item-in .42s var(--ar-ease) .24s both; }
   .hdr__sheet-foot .btn { width: 100%; height: 52px; }
   .hdr__sheet-foot p { color: var(--muted); font-size: var(--t-small); }
   html.menu-open { overflow: hidden; }
